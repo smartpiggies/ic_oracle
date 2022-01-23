@@ -1,0 +1,35 @@
+{
+  "canisters": {
+    "price_oracle": {
+      "main": "src/price_oracle/main.mo",
+      "type": "motoko"
+    },
+    "price_oracle_assets": {
+      "dependencies": [
+        "price_oracle"
+      ],
+      "frontend": {
+        "entrypoint": "src/price_oracle_assets/src/index.html"
+      },
+      "source": [
+        "src/price_oracle_assets/assets",
+        "dist/price_oracle_assets/"
+      ],
+      "type": "assets"
+    }
+  },
+  "defaults": {
+    "build": {
+      "args": "",
+      "packtool": ""
+    }
+  },
+  "dfx": "0.8.4",
+  "networks": {
+    "local": {
+      "bind": "127.0.0.1:8000",
+      "type": "ephemeral"
+    }
+  },
+  "version": 1
+}

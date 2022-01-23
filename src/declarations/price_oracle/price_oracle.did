@@ -1,0 +1,3 @@
+service : {
+  addRecord: (text, int64) -> ();
+}
