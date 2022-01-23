@@ -47,6 +47,11 @@ actor Price_Oracle {
     return record.price;
   };
 
+  // return latest price
+  public func getLatest() : async Int64 {
+    return records[index].price;
+  };
+
   // utility helpers
   public func getIndex() : async Int {
     return index;
@@ -76,7 +81,6 @@ actor Price_Oracle {
       if (_timestamp < result) {
         index := mid - 1;
       };
-
       if (result == _timestamp) { return mid };
     };
     return index;
