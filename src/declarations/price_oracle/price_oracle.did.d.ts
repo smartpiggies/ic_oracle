@@ -4,4 +4,5 @@ export interface _SERVICE {
   'getIndex' : () => Promise<bigint>,
   'getLatest' : () => Promise<bigint>,
   'getPrice' : (arg_0: bigint) => Promise<bigint>,
+  'getRecord' : (arg_0: bigint) => Promise<[string, bigint, bigint]>,
 }

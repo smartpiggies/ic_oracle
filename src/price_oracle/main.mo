@@ -23,7 +23,8 @@ actor Price_Oracle {
   };
   let records : [var Record] = Array.init<Record>(capacity, defaultRecord);
   let timeArr : [var Int] = Array.init<Int>(capacity, maxTime);
-  stable var index : Nat = 0;
+  // stable var index : Nat = 0;
+  var index : Nat = 0;
 
   // add a new price record
   public func addRecord(_date : Text, _price : Int64) : async () {
@@ -47,9 +48,15 @@ actor Price_Oracle {
     return record.price;
   };
 
+  // return a corresponding record at an index postion
+  public func getRecord(_index : Nat) : async (Text, Int64, Int) {
+    let record : Record = records[_index];
+    return (record.date, record.price, record.timestamp);
+  };
+
   // return latest price
   public func getLatest() : async Int64 {
-    return records[index].price;
+    return records[index-1].price;
   };
 
   // utility helpers

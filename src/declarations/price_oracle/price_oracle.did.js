@@ -4,6 +4,7 @@ export const idlFactory = ({ IDL }) => {
     'getIndex' : IDL.Func([], [IDL.Int], []),
     'getLatest' : IDL.Func([], [IDL.Int64], []),
     'getPrice' : IDL.Func([IDL.Int], [IDL.Int64], []),
+    'getRecord' : IDL.Func([IDL.Nat], [IDL.Text, IDL.Int64, IDL.Int], []),
   });
 };
 export const init = ({ IDL }) => { return []; };
