@@ -37,3 +37,21 @@ Records can be queried from the Candid UI
 However, records can only be added with an authenticated user:
 
 `dfx canister --wallet=$(dfx identity get-wallet) call price_oracle addRecord '("20220123", 2057)'`
+
+## Adding records with an admin:
+
+Steps for creating a new identity and adding it as an admin:
+
+`dfx identity new ic_admin`
+
+`dfx use identity ic_admin`
+
+`dfx identity get-principal`
+
+`dfx use identity default`
+
+`dfx canister —wallet=$(dfx identity get-wallet) call price_oracle setAdmin ‘(principal “<principal from ic_admin>”)’`
+
+`dfx —identity ic_admin canister call price_oracle checkAdmin`
+
+`dfx —identity ic_admin canister call price_oracle addRecord ‘(“20220124”,2062)’`

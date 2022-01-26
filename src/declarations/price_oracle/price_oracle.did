@@ -1,0 +1,13 @@
+type Price_Oracle = 
+ service {
+   addAdmin: (principal) -> ();
+   addRecord: (text, int64) -> ();
+   checkAdmin: () -> (bool);
+   getIndex: () -> (int);
+   getLatest: () -> (int64);
+   getOwner: () -> (text);
+   getPrice: (int) -> (int64);
+   getRecord: (nat) -> (text, int64, int);
+   removeAdmin: (principal) -> ();
+ };
+service : () -> Price_Oracle
