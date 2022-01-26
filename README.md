@@ -38,7 +38,7 @@ However, records can only be added with an authenticated user:
 
 `dfx canister --wallet=$(dfx identity get-wallet) call price_oracle addRecord '("20220123", 2057)'`
 
-## Adding records with an admin:
+## Adding records with an admin (locally):
 
 Steps for creating a new identity and adding it as an admin:
 
@@ -55,3 +55,27 @@ Steps for creating a new identity and adding it as an admin:
 `dfx —identity ic_admin canister call price_oracle checkAdmin`
 
 `dfx —identity ic_admin canister call price_oracle addRecord ‘(“20220124”,2062)’`
+
+`dfx identity list`
+
+`dfx identity remove ic_admin`
+
+## Deployment
+
+`dfx canister --network=ic create --all`
+
+`dfx canister build --check --network=ic`
+
+`dfx canister --network=ic install --all`
+
+deployed to canister id: `lkvnh-zyaaa-aaaai-qfl2q-cai`
+
+`dfx canister --network=ic --wallet=$(dfx identity --network=ic get-wallet) call price_oracle addRecord '("20221023",2057)'`
+
+## Costs
+
+Failed added record: 10 938 cycles
+
+Successful added record: 3 102 327 cycles
+
+Read record: 54 690 cycles

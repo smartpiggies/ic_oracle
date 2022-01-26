@@ -9,7 +9,7 @@ import Principal "mo:base/Principal";
 
 shared (msg) actor class Price_Oracle() {
 
-  let owner = msg.caller;
+  let owner = msg.caller; // does this need to be stable???
 
   public type Record = {
       timestamp : Int;
