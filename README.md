@@ -23,3 +23,11 @@ id found in `.dfx/local/canister_ids.json` or with:
 and
 
 `dfx canister id <caniser name, i.e. price_oracle>`
+
+upgrading the canister:
+
+`dfx deploy`
+
+or
+
+`dfx canister install --mode=upgrade --all`

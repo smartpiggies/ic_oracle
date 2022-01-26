@@ -1,10 +1,11 @@
 import Int "mo:base/Int";
-import Nat32 "mo:base/Nat32";
-import Int64 "mo:base/Int64";
 import Text "mo:base/Text";
-import Array "mo:base/Array";
 import Time "mo:base/Time";
-import Debug "mo:base/Debug";
+import Int64 "mo:base/Int64";
+import Error "mo:base/Error";
+import Array "mo:base/Array";
+import Option "mo:base/Option";
+import Principal "mo:base/Principal";
 
 actor Price_Oracle {
 
@@ -21,13 +22,16 @@ actor Price_Oracle {
     date = "19700101"; // 1 January 1970, yyyymmdd
     price = 0;
   };
-  let records : [var Record] = Array.init<Record>(capacity, defaultRecord);
-  let timeArr : [var Int] = Array.init<Int>(capacity, maxTime);
-  // stable var index : Nat = 0;
-  var index : Nat = 0;
+
+  // persistent data
+  stable let records : [var Record] = Array.init<Record>(capacity, defaultRecord);
+  stable let timeArr : [var Int] = Array.init<Int>(capacity, maxTime);
+  stable var index : Nat = 0;
+  stable var admins: [Principal] = [];
 
   // add a new price record
-  public func addRecord(_date : Text, _price : Int64) : async () {
+  public shared(msg) func addRecord(_date : Text, _price : Int64) : async () {
+    if (not isAdmin(msg.caller)) { throw Error.reject( "unauthorized") };
     let record : Record = {
       timestamp = Time.now();
       date = _date;
@@ -91,6 +95,12 @@ actor Price_Oracle {
       if (result == _timestamp) { return mid };
     };
     return index;
+  };
+
+  // authorization
+  private func isAdmin(user: Principal) : Bool {
+    func identity(x : Principal) : Bool { x == user };
+    Option.isSome(Array.find<Principal>(admins, identity));
   };
 
 };
