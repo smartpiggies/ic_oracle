@@ -31,3 +31,9 @@ upgrading the canister:
 or
 
 `dfx canister install --mode=upgrade --all`
+
+Records can be queried from the Candid UI
+
+However, records can only be added with an authenticated user:
+
+`dfx canister --wallet=$(dfx identity get-wallet) call price_oracle addRecord '("20220123", 2057)'`

@@ -1,7 +1,0 @@
-service : {
-  addRecord: (text, int64) -> ();
-  getIndex: () -> (int);
-  getLatest: () -> (int64);
-  getPrice: (int) -> (int64);
-  getRecord: (nat) -> (text, int64, int);
-}

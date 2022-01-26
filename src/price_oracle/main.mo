@@ -7,7 +7,8 @@ import Array "mo:base/Array";
 import Option "mo:base/Option";
 import Principal "mo:base/Principal";
 
-actor Price_Oracle {
+shared ({ caller = initializer }) actor class Price_Oracle() {
+//actor Price_Oracle {
 
   public type Record = {
       timestamp : Int;
@@ -31,7 +32,7 @@ actor Price_Oracle {
 
   // add a new price record
   public shared(msg) func addRecord(_date : Text, _price : Int64) : async () {
-    if (not isAdmin(msg.caller)) { throw Error.reject( "unauthorized") };
+    if (not authorized(msg.caller)) { throw Error.reject( "unauthorized") };
     let record : Record = {
       timestamp = Time.now();
       date = _date;
@@ -68,6 +69,19 @@ actor Price_Oracle {
     return index;
   };
 
+  public shared(msg) func checkAdmin() : async Bool {
+    msg.caller == initializer or isAdmin(msg.caller);
+  };
+
+  public shared(msg) func setAdmin(user : Principal) : async () {
+    if (not authorized(msg.caller)) { throw Error.reject( "unauthorized") };
+    admins := Array.append<Principal>(admins, [user]);
+  };
+
+  public func getOwner() : async Principal {
+    return initializer;
+  };
+
   private func findIdx(_timestamp : Int) : Nat {
     var index : Nat = 0;
     var result : Int = timeArr[index];
@@ -101,6 +115,10 @@ actor Price_Oracle {
   private func isAdmin(user: Principal) : Bool {
     func identity(x : Principal) : Bool { x == user };
     Option.isSome(Array.find<Principal>(admins, identity));
+  };
+
+  private func authorized(user: Principal) : Bool {
+    user == initializer or isAdmin(user);
   };
 
 };
