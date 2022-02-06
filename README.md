@@ -1,6 +1,8 @@
 # User Controlled Price Oracle
 Internet Computer repo for a user controlled price oracle
 
+![Oracle Diagram](./media/Oracle_Diagram.jpg)
+
 * clone repo
 * cd into repo
 * run `npm install`
